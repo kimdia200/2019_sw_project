@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".SignUp" />
         <activity android:name=".Certification" />
-        <activity android:name=".Main"></activity>
+        <activity android:name=".Main" />
+        <activity android:name=".Select"></activity>
     </application>
 
 </manifest>

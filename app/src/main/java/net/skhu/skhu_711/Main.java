@@ -1,5 +1,6 @@
 package net.skhu.skhu_711;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +19,10 @@ public class Main extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //예약화면으로 인텐트
+                Intent intent = new Intent(getApplicationContext(), Select.class);
+                startActivity(intent);
             }
         };
+        btn.setOnClickListener(listener);
     }
 }
