@@ -32,8 +32,9 @@ public class Certification extends AppCompatActivity {
         if(stdId != null && stdPw!=null){
             if(stdId.equals("b")&&stdPw.equals("b")){
                 //자동로그인조건 만족시 다음페이지로 넘어감
-                Toast.makeText(this, "자동로그인합니다", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "자동 인증합니다", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, Main.class);
+                intent.putExtra("stdId",stdId);
                 startActivity(intent);
                 finish();
             }
@@ -58,6 +59,7 @@ public class Certification extends AppCompatActivity {
 
                     //로그인조건 만족시 다음페이지로 넘어감
                     Intent intent = new Intent(getApplicationContext(), Main.class);
+                    intent.putExtra("stdId",editText1.getText().toString());
                     startActivity(intent);
                     finish();
                 }

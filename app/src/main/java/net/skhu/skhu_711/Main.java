@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Main extends AppCompatActivity {
@@ -19,6 +20,11 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_main);
+
+
+        TextView UserStatus = (TextView)findViewById(R.id.textView_id);
+        String stdId = getIntent().getStringExtra("stdId");
+        UserStatus.setText(stdId+"님 환영합니다");
 
 
         Button btn = (Button)findViewById(R.id.btn_click);
@@ -31,33 +37,27 @@ public class Main extends AppCompatActivity {
             }
         };
         btn.setOnClickListener(listener);
+        Button btn2 = (Button)findViewById(R.id.btn_logout);
+        View.OnClickListener listener2 = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Main.this, Login.class);
+                startActivity(intent);
+                SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = auto.edit();
+                //editor.clear()는 auto에 들어있는 모든 정보를 기기에서 지웁니다.
+                editor.clear();
+                editor.commit();
+                SharedPreferences auto2 = getSharedPreferences("auto2", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor2 = auto2.edit();
+                //editor2.clear()는 auto2에 들어있는 모든 정보를 기기에서 지웁니다.
+                editor2.clear();
+                editor2.commit();
+                Toast.makeText(Main.this, "로그아웃", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        };
+        btn2.setOnClickListener(listener2);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.logOut){
-            Intent intent = new Intent(Main.this, Login.class);
-            startActivity(intent);
-            SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
-            SharedPreferences.Editor editor = auto.edit();
-            //editor.clear()는 auto에 들어있는 모든 정보를 기기에서 지웁니다.
-            editor.clear();
-            editor.commit();
-            SharedPreferences auto2 = getSharedPreferences("auto2", Activity.MODE_PRIVATE);
-            SharedPreferences.Editor editor2 = auto.edit();
-            //editor2.clear()는 auto2에 들어있는 모든 정보를 기기에서 지웁니다.
-            editor2.clear();
-            editor2.commit();
-            Toast.makeText(Main.this, "로그아웃.", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
