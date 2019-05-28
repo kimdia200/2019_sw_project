@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +17,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main extends AppCompatActivity {
+
+    ArrayList<Building_item> arrayList;
+    BuildingAdapter buildingAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +37,25 @@ public class Main extends AppCompatActivity {
         UserStatus.setText(stdId+"님 환영합니다");
 
 
-        Button btn = (Button)findViewById(R.id.btn_click);
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //예약화면으로 인텐트
-                Intent intent = new Intent(getApplicationContext(), Select.class);
-                startActivity(intent);
-            }
-        };
-        btn.setOnClickListener(listener);
+        //건물목록을 나타내주는 RecyclerView 구현 시작
+        arrayList = new ArrayList<>();
+        arrayList.add(new Building_item("승연관","A",R.drawable.ic_launcher_foreground));
+        arrayList.add(new Building_item("일만관","B",R.drawable.ic_launcher_background));
+        arrayList.add(new Building_item("월당관","C",R.drawable.ic_launcher_foreground));
+        arrayList.add(new Building_item("이천환관","D",R.drawable.ic_launcher_background));
+        arrayList.add(new Building_item("새천년관","E",R.drawable.ic_launcher_foreground));
+        arrayList.add(new Building_item("성미가엘성당","F",R.drawable.ic_launcher_background));
+        arrayList.add(new Building_item("미가엘관","G",R.drawable.ic_launcher_background));
+
+        buildingAdapter = new BuildingAdapter(this, arrayList);
+        RecyclerView recyclerView1 = (RecyclerView)findViewById(R.id.BuildingView);
+        recyclerView1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView1.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
+        recyclerView1.setItemAnimator(new DefaultItemAnimator());
+        recyclerView1.setAdapter(buildingAdapter);
+        //건물 목록을 나타내주는 RecyclerView 구현 완료
+
+        //로그아웃 버튼 구현 시작
         Button btn2 = (Button)findViewById(R.id.btn_logout);
         View.OnClickListener listener2 = new View.OnClickListener() {
             @Override
@@ -58,6 +77,7 @@ public class Main extends AppCompatActivity {
             }
         };
         btn2.setOnClickListener(listener2);
+        //로그아웃 버튼 구현 완료
     }
 
 }
