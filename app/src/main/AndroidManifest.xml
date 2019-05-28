@@ -19,7 +19,8 @@
         <activity android:name=".SignUp" />
         <activity android:name=".Certification" />
         <activity android:name=".Main" />
-        <activity android:name=".Select"></activity>
+        <activity android:name=".Select" />
+        <activity android:name=".BookingList"></activity>
     </application>
 
 </manifest>

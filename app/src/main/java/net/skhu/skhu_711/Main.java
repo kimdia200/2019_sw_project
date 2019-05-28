@@ -28,24 +28,24 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_main);
 
 
         TextView UserStatus = (TextView)findViewById(R.id.textView_id);
         String stdId = getIntent().getStringExtra("stdId");
         UserStatus.setText(stdId+"님 환영합니다");
+        //intent로 넘겨받은 값을 이용해서 학번+"님 환영합니다"표시 함
 
 
         //건물목록을 나타내주는 RecyclerView 구현 시작
         arrayList = new ArrayList<>();
         arrayList.add(new Building_item("승연관","A",R.drawable.ic_launcher_foreground));
-        arrayList.add(new Building_item("일만관","B",R.drawable.ic_launcher_background));
+        arrayList.add(new Building_item("일만관","B",R.drawable.ic_launcher_foreground));
         arrayList.add(new Building_item("월당관","C",R.drawable.ic_launcher_foreground));
-        arrayList.add(new Building_item("이천환관","D",R.drawable.ic_launcher_background));
+        arrayList.add(new Building_item("이천환관","D",R.drawable.ic_launcher_foreground));
         arrayList.add(new Building_item("새천년관","E",R.drawable.ic_launcher_foreground));
-        arrayList.add(new Building_item("성미가엘성당","F",R.drawable.ic_launcher_background));
-        arrayList.add(new Building_item("미가엘관","G",R.drawable.ic_launcher_background));
+        arrayList.add(new Building_item("성미가엘성당","F",R.drawable.ic_launcher_foreground));
+        arrayList.add(new Building_item("미가엘관","G",R.drawable.ic_launcher_foreground));
 
         buildingAdapter = new BuildingAdapter(this, arrayList);
         RecyclerView recyclerView1 = (RecyclerView)findViewById(R.id.BuildingView);

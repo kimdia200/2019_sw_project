@@ -29,6 +29,7 @@
         <activity android:name="net.skhu.skhu_711.Certification" />
         <activity android:name="net.skhu.skhu_711.Main" />
         <activity android:name="net.skhu.skhu_711.Select" />
+        <activity android:name="net.skhu.skhu_711.BookingList" />
     </application>
 
 </manifest>
