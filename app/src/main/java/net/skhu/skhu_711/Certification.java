@@ -22,11 +22,13 @@ public class Certification extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_certification);
 
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setMessage(R.string.certification_msg);
-//        builder.setNeutralButton("닫기",null);
-//        AlertDialog dialog =builder.create();
-//        dialog.show();
+        //학사정보시스템 로그인정보 안내 Alert Dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.certification_msg);
+        builder.setNeutralButton("닫기",null);
+        AlertDialog dialog =builder.create();
+        dialog.show();
+        //추후 Alert말고 뷰로 표시할지 고민중
 
 
         SharedPreferences auto2 = getSharedPreferences("auto2", Activity.MODE_PRIVATE);
@@ -83,12 +85,16 @@ public class Certification extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Certification.this, Login.class);
                 startActivity(intent);
+                //앱 자동로그인 정보 삭제 구현시작
                 SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = auto.edit();
                 //editor.clear()는 auto에 들어있는 모든 정보를 기기에서 지웁니다.
                 editor.clear();
+                //editor.commit()는 auto에 대한 수정값을 최종적으로 저장해줍니다
                 editor.commit();
+                //앱 자동로그인 정보 삭제 구현 완료
                 finish();
+                //login Activity로 이동후 현재(Certification Activity종료)
             }
         };
         btn2.setOnClickListener(listener2);
