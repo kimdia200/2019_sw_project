@@ -1,6 +1,7 @@
 package net.skhu.skhu_711;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,12 @@ public class Certification extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_certification);
+
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setMessage(R.string.certification_msg);
+//        builder.setNeutralButton("닫기",null);
+//        AlertDialog dialog =builder.create();
+//        dialog.show();
 
 
         SharedPreferences auto2 = getSharedPreferences("auto2", Activity.MODE_PRIVATE);
@@ -70,5 +77,20 @@ public class Certification extends AppCompatActivity {
             }
         };
         btn1.setOnClickListener(listener);
+        Button btn2 = (Button)findViewById(R.id.btn_back);
+        View.OnClickListener listener2 = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Certification.this, Login.class);
+                startActivity(intent);
+                SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = auto.edit();
+                //editor.clear()는 auto에 들어있는 모든 정보를 기기에서 지웁니다.
+                editor.clear();
+                editor.commit();
+                finish();
+            }
+        };
+        btn2.setOnClickListener(listener2);
     }
 }
