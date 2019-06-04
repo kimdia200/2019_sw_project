@@ -17,13 +17,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends AppCompatActivity {
 
     ArrayList<Building_item> arrayList;
+    ArrayList<MyList_item> arrayList2;
     BuildingAdapter buildingAdapter;
+    MyListAdapter myListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,19 @@ public class Main extends AppCompatActivity {
         recyclerView1.setItemAnimator(new DefaultItemAnimator());
         recyclerView1.setAdapter(buildingAdapter);
         //건물 목록을 나타내주는 RecyclerView 구현 완료
+
+        //나의 예약현황을 나타내주는 RecyclerView 구현 시작
+        LocalDate dd = LocalDate.now();
+        arrayList2 = new ArrayList<>();
+        arrayList2.add(new MyList_item(1,new RentalDate(10,12,dd),"승인대기중","6202",true));
+        arrayList2.add(new MyList_item(2,new RentalDate(10,12,dd),"승인","6206",false));
+        myListAdapter = new MyListAdapter(this,arrayList2);
+        RecyclerView recyclerView2 = (RecyclerView)findViewById(R.id.BookingView);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recyclerView2.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        recyclerView2.setItemAnimator(new DefaultItemAnimator());
+        recyclerView2.setAdapter(myListAdapter);
+        //나의 예약현황을 나타내주는 RecyclerView 구현 종료
 
         //로그아웃 버튼 구현 시작
         Button btn2 = (Button)findViewById(R.id.btn_logout);
