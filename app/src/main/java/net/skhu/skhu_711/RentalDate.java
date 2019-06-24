@@ -5,13 +5,26 @@ import java.util.Date;
 
 public class RentalDate {
 
-    int startTime, endTime;
+    int startTime;
+    int endTime;
     LocalDate rentalDate;
 
 
     RentalDate(int startTime, int endTime, LocalDate rentalDate){
         this.startTime = startTime;
         this.endTime = endTime;
+        this.rentalDate = rentalDate;
+    }
+
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(int endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setRentalDate(LocalDate rentalDate) {
         this.rentalDate = rentalDate;
     }
 

@@ -65,8 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="강의실 코드"
+        android:text="건물 코드"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/building_code"
         app:layout_constraintTop_toTopOf="parent" />

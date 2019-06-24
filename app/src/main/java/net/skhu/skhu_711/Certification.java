@@ -2,6 +2,7 @@ package net.skhu.skhu_711;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+
+import okhttp3.JavaNetCookieJar;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,22 +57,16 @@ public class Certification extends AppCompatActivity {
         editText2 = (EditText)findViewById(R.id.input_std_pw);
 
         //intent로 Login액티비티에서 넘겨준 토큰값,리프레쉬 토큰값 받아옴
-        token = getIntent().getStringExtra("token");
+        token = "Bearer "+getIntent().getStringExtra("token");
         refToken = getIntent().getStringExtra("refToken");
 
         //기존에 sharedPreferences값이 존재한다면 자동로그인 실행
         if(stdId != null && stdPw!=null){
                 //자동로그인조건 만족시 다음페이지로 넘어감
-                Toast.makeText(this, "자동 인증합니다", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, Main.class);
-                intent.putExtra("token",token);
-                intent.putExtra("refToken",refToken);
-                startActivity(intent);
-                finish();
+            editText1.setText(stdId);
+            editText2.setText(stdPw);
+            forestLogin();
         }
-        Toast.makeText(this, stdId + stdPw, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this,"Bearer "+token, Toast.LENGTH_SHORT).show();
-
         //인증 버튼 눌렀을경우
         Button btn1 = (Button)findViewById(R.id.btn_Certification);
         View.OnClickListener listener = new View.OnClickListener() {
@@ -69,26 +74,6 @@ public class Certification extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 forestLogin();
-//                if(editText1.getText().toString().equals("b")&&editText2.getText().toString().equals("b")){
-//                    //로그인조건 만족시 sharedpreferences 생성
-//                    SharedPreferences auto2 = getSharedPreferences("auto2",Activity.MODE_PRIVATE);
-//                    SharedPreferences.Editor autoLogin2 = auto2.edit();
-//                    autoLogin2.putString("inputStdId",editText1.getText().toString());
-//                    autoLogin2.putString("inputStdPw",editText2.getText().toString());
-//                    autoLogin2.commit();
-//                    Toast.makeText(Certification.this, "학사 인증완료", Toast.LENGTH_SHORT).show();
-//
-//
-//                    //로그인조건 만족시 다음페이지로 넘어감
-//                    Intent intent = new Intent(getApplicationContext(), Main.class);
-//                    intent.putExtra("stdId",editText1.getText().toString());
-//                    startActivity(intent);
-//                    finish();
-//                }
-//                else{
-//                    //로그인조건 불만족시
-//                    Toast.makeText(Certification.this, "학사정보 불일치", Toast.LENGTH_SHORT).show();
-//                }
             }
         };
         //btn1에 리스너 달아줌
@@ -116,15 +101,36 @@ public class Certification extends AppCompatActivity {
         //btn2에 리스너 달아줌
         btn2.setOnClickListener(listener2);
     }
+
+
+    //forestLogin함수
     public void forestLogin(){
+//         라이브러리로 쓴거
+        ClearableCookieJar cookieJar =
+                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(this.getApplicationContext()));
+
+        final OkHttpClient client = new OkHttpClient.Builder()
+                .cookieJar(cookieJar)
+                .build();
+
+//        OkHttpClient client = new OkHttpClient();
+//        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+//
+//        builder.addInterceptor(new AddCookiesInterceptor(Certification.this)); // VERY VERY IMPORTANT
+//        builder.addInterceptor(new RecievedCookiesInterceptor(Certification.this)); // VERY VERY IMPORTANT
+//        client = builder.build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(url)
+                .client(client)
                 .build();
         s1 = editText1.getText().toString();
         s2 = editText2.getText().toString();
         ForestLoginRequest req = new ForestLoginRequest(s1,s2);
         SkhuService service = retrofit.create(SkhuService.class);
+
+
         Call<ForestLoginResponse> call = service.postForestLogin(token,req);
         call.enqueue(new Callback<ForestLoginResponse>() {
             @Override
@@ -132,11 +138,31 @@ public class Certification extends AppCompatActivity {
                 String msg = "";
                 ForestLoginResponse res = (ForestLoginResponse)response.body();
                 msg=res.getMessage();
-                Toast.makeText(Certification.this, msg, Toast.LENGTH_SHORT).show();
+                if(msg.equals("로그인 성공")){
+                    //로그인조건 만족시 sharedpreferences 생성
+                    SharedPreferences auto2 = getSharedPreferences("auto2",Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor autoLogin2 = auto2.edit();
+                    autoLogin2.putString("inputStdId",editText1.getText().toString());
+                    autoLogin2.putString("inputStdPw",editText2.getText().toString());
+                    autoLogin2.commit();
+                    Toast.makeText(Certification.this, "학사 인증완료", Toast.LENGTH_SHORT).show();
+
+
+                    //로그인조건 만족시 다음페이지로 넘어감
+                    Intent intent = new Intent(getApplicationContext(), Main.class);
+                    intent.putExtra("stdId",editText1.getText().toString());
+                    intent.putExtra("token",token);
+                    intent.putExtra("refToken",refToken);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(Certification.this, msg, Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onFailure(Call<ForestLoginResponse> call, Throwable t) {
+                t.printStackTrace();
 
             }
         });

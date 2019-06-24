@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -31,12 +32,6 @@ public interface SkhuService {
             //Body값에 SignUpRequest객체를 넣어서 요청
     );
 
-//    @FormUrlEncoded
-//    @POST("/user/login")
-//    Call<ForestLoginResponse> postForestLogin(@Header("Authorization") String token),
-//            @Field("ssss") String sssss,@Field("sssssss") String ddddddd;
-//    );
-
     //Post요청 메소드(Certification Activity에서 사용함)
     @POST("/user/login")
     //SKHU forest 로그인
@@ -45,5 +40,21 @@ public interface SkhuService {
             @Header("Authorization") String token,
             @Body ForestLoginRequest forestLoginRequest
     );
+
+    //Get요청 메소드(Main Activity에서 사용함)
+    @GET("/user/rentalList")
+    //SKHU forest를 통해 현재 대여신청목록 가져옴
+    Call<RentalListResponse> getRentalList(
+            //요청에 대한 응답을 RentalListResponse객체로 반환받고 메소드 이름을 getRentalList로
+            @Header("Authorization") String token
+    );
+    //Get요청 메소드(Main Activity에서 사용함)
+    @GET("/students/own")
+    //토큰에 대한 사용자 정보 조회
+    Call<UserInfoResponse> getUserInfo(
+            //요청에 대한 응답을 UserInfoResPonse객체로 반환받고 메소드 이름을 getUserInfo로
+            @Header("Authorization") String token
+    );
+
 
 }

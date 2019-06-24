@@ -25,12 +25,18 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //RecyclerView 라이브러리 추가
     implementation 'com.android.support:recyclerview-v7:28.0.0'
 
+    //http통신라이브러리 retrofit2 세개 추가
     implementation 'com.google.code.gson:gson:2.7'
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
-    //http통신라이브러리 retrofit2 세개 추가
 
+    //Cookie 관리를 위한 okhttp3 라이브러리 추가
+    implementation 'com.squareup.okhttp3:okhttp:3.5.0'
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.5.0'
+
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
 
 }

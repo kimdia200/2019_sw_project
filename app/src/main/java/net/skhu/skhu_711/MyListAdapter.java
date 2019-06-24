@@ -36,7 +36,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
                             item.getRentalDate().getRentalDate());
             //ex) 11:00 ~ 12:00 2019-05-28
             rCode.setText(item.getLectureCode());
-            if(item.getCancle()!=true){
+            if(item.getCancel()!=true){
                 cancle.setVisibility(View.INVISIBLE);
             }//취소여부가 가능이면 버튼을 표시하고 아니면 버튼을 감춤
             View.OnClickListener listener = new View.OnClickListener() {
@@ -46,6 +46,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
                     Toast.makeText(view.getContext(), "취소버튼 클릭", Toast.LENGTH_SHORT).show();
                 }
             };
+            cancle.setOnClickListener(listener);
         }
     }
     LayoutInflater layoutInflater;
