@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.skhu.skhu_711">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".RequestPage"></activity>
         <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,8 +23,7 @@
         <activity android:name=".Certification" />
         <activity android:name=".Main" />
         <activity android:name=".Select" />
-        <activity android:name=".BookingList"></activity>
+        <activity android:name=".BookingList" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>

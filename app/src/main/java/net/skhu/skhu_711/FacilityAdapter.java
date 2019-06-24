@@ -45,7 +45,8 @@ public class FacilityAdapter extends RecyclerView.Adapter<FacilityAdapter.ViewHo
 
             Intent intent = new Intent(view.getContext(), BookingList.class);
             intent.putExtra("bCode",mActivity.getIntent().getStringExtra("bCode"));
-            //이전엑티비티에서 intent받은 건물 코드 가져와서 다시 전송
+            intent.putExtra("bName",mActivity.getIntent().getStringExtra("bName"));
+            //이전엑티비티에서 intent받은 강의실 코드,건물 코드,이름 가져와서 다시 전송
             intent.putExtra("fName",item.getfName());
             intent.putExtra("fCode",item.getfCode());
             intent.putExtra("fCapacity",item.getfCapacity());

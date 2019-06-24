@@ -476,6 +476,10 @@
         "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\86c45ea1da537ad4259051076b67f88c\\res\\anim\\abc_slide_out_top.xml"
     },
     {
+        "merged": "C:\\Users\\Administrator\\Desktop\\Skhu_711\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_request_page.xml.flat",
+        "source": "C:\\Users\\Administrator\\Desktop\\Skhu_711\\app\\src\\main\\res\\layout\\activity_request_page.xml"
+    },
+    {
         "merged": "C:\\Users\\Administrator\\Desktop\\Skhu_711\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_alert_dialog_button_bar_material.xml.flat",
         "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\86c45ea1da537ad4259051076b67f88c\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
     },
@@ -494,6 +498,10 @@
     {
         "merged": "C:\\Users\\Administrator\\Desktop\\Skhu_711\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_btn_radio_to_on_mtrl_000.png.flat",
         "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\86c45ea1da537ad4259051076b67f88c\\res\\drawable-xxhdpi-v4\\abc_btn_radio_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\Skhu_711\\app\\build\\intermediates\\res\\merged\\debug\\drawable_class3.png.flat",
+        "source": "C:\\Users\\Administrator\\Desktop\\Skhu_711\\app\\src\\main\\res\\drawable\\class3.png"
     },
     {
         "merged": "C:\\Users\\Administrator\\Desktop\\Skhu_711\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_ic_menu_selectall_mtrl_alpha.png.flat",
@@ -1204,6 +1212,10 @@
         "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\86c45ea1da537ad4259051076b67f88c\\res\\drawable-xxhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
     },
     {
+        "merged": "C:\\Users\\Administrator\\Desktop\\Skhu_711\\app\\build\\intermediates\\res\\merged\\debug\\drawable_class2.png.flat",
+        "source": "C:\\Users\\Administrator\\Desktop\\Skhu_711\\app\\src\\main\\res\\drawable\\class2.png"
+    },
+    {
         "merged": "C:\\Users\\Administrator\\Desktop\\Skhu_711\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_primary_text_disable_only_material_dark.xml.flat",
         "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\86c45ea1da537ad4259051076b67f88c\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
     },
@@ -1322,6 +1334,10 @@
     {
         "merged": "C:\\Users\\Administrator\\Desktop\\Skhu_711\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_ic_go_search_api_material.xml.flat",
         "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\86c45ea1da537ad4259051076b67f88c\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\Skhu_711\\app\\build\\intermediates\\res\\merged\\debug\\drawable_class1.png.flat",
+        "source": "C:\\Users\\Administrator\\Desktop\\Skhu_711\\app\\src\\main\\res\\drawable\\class1.png"
     },
     {
         "merged": "C:\\Users\\Administrator\\Desktop\\Skhu_711\\app\\build\\intermediates\\res\\merged\\debug\\color_switch_thumb_material_light.xml.flat",
