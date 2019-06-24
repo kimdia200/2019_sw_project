@@ -10,10 +10,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class Login extends AppCompatActivity {
+    final static String url = "https://dev.mobile.shouwn.com/";
     EditText editText1;
     EditText editText2;
     String loginId, loginPw;
+    Button btn1, btn2;
+    String msg;
+    String token;
+    String refToken;
 
 
     @Override
@@ -22,47 +33,33 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         editText1 = (EditText)findViewById(R.id.input_Id);
         editText2 = (EditText)findViewById(R.id.input_pw);
+        btn1 = (Button)findViewById(R.id.btn_1);
+        btn2 = (Button)findViewById(R.id.btn_2);
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         loginId = auto.getString("inputId",null);
         loginPw = auto.getString("inputPw",null);
 
+
         if(loginId != null && loginPw!=null){
-            if(loginId.equals("a")&&loginPw.equals("a")){
-                //자동로그인조건 만족시 다음페이지로 넘어감
-                Toast.makeText(this, "자동로그인합니다", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, Certification.class);
-                startActivity(intent);
-                finish();
-            }
+            //자동로그인조건 만족시 다음페이지로 넘어감
+            Toast.makeText(this, "자동로그인합니다", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, Certification.class);
+            startActivity(intent);
+            finish();
+
         }
-        Toast.makeText(this, loginId + loginPw, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, loginId +" "+ loginPw, Toast.LENGTH_SHORT).show();
     }
 
     public void onclick(View view){
         int buttonId = view.getId();
-        
+
+        //로그인버튼이 눌리면 서버에서 아이디비밀번호 확인함
         if(buttonId == R.id.btn_1) {
-            //로그인버튼이 눌리면 서버에서 아이디비밀번호 확인함
-            if(editText1.getText().toString().equals("a")&&editText2.getText().toString().equals("a")){
-                //로그인조건 만족시 sharedpreferences 생성
-                SharedPreferences auto = getSharedPreferences("auto",Activity.MODE_PRIVATE);
-                SharedPreferences.Editor autoLogin = auto.edit();
-                autoLogin.putString("inputId",editText1.getText().toString());
-                autoLogin.putString("inputPw",editText2.getText().toString());
-                autoLogin.commit();
-                Toast.makeText(this, "로그인완료", Toast.LENGTH_SHORT).show();
-
-
-                //로그인조건 만족시 다음페이지로 넘어감
-                Intent intent = new Intent(this, Certification.class);
-                startActivity(intent);
-                finish();
-            }
-            else{
-                //로그인조건 불만족시
-                Toast.makeText(this, "아이디와 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
-            }
+            //유효한 로그인인지 검사
+            check_logIn();
         }
+        //회원가입 버튼이 눌리면
         else if(buttonId ==R.id.btn_2){
             //회원가입 버튼이 눌리면
             Toast.makeText(this, "회원가입 창으로 전환합니다", Toast.LENGTH_SHORT).show();
@@ -70,4 +67,51 @@ public class Login extends AppCompatActivity {
             startActivity(intent);
         }
     };
+
+    public void check_logIn(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(url)
+                .build();
+        SkhuService service = retrofit.create(SkhuService.class);
+        LoginRequest req = new LoginRequest(editText1.getText().toString(),editText2.getText().toString());
+        Toast.makeText(this, req.getUsername()+req.getPassword(), Toast.LENGTH_SHORT).show();
+        Call<LoginResponse> call = service.postLogin(req);
+        call.enqueue(new Callback<LoginResponse>() {
+
+            @Override
+            //서버통신이 성공적이면
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                LoginResponse res = (LoginResponse)response.body();
+                msg = res.getMessage();
+                //로그인이 성공적이면
+                if(msg.equals("로그인 성공")){
+                    //로그인조건 만족시 sharedpreferences 생성
+                    SharedPreferences auto = getSharedPreferences("auto",Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor autoLogin = auto.edit();
+                    autoLogin.putString("inputId",editText1.getText().toString());
+                    autoLogin.putString("inputPw",editText2.getText().toString());
+                    autoLogin.commit();
+                    //토큰값 저장
+                    token = res.getData().getToken();
+                    refToken = res.getData().getRefreshToken();
+                    Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
+
+
+                    //로그인조건 만족시 다음페이지로 넘어감
+                    Intent intent = new Intent(getApplicationContext(),Certification.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    //로그인 실패시 로그인실패 메시지 보여줌
+                    Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Toast.makeText(Login.this, "서버 연결 실패", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

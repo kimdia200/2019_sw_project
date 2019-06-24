@@ -22,5 +22,6 @@
         <activity android:name=".Select" />
         <activity android:name=".BookingList"></activity>
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
