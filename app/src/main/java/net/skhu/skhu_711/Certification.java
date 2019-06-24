@@ -11,11 +11,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class Certification extends AppCompatActivity {
 
-
+    final static String url = "https://dev.mobile.shouwn.com/";
     String stdId, stdPw;
     EditText editText1,editText2;
+    String token,refToken;
+    String s1,s2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,55 +38,63 @@ public class Certification extends AppCompatActivity {
         dialog.show();
         //추후 Alert말고 뷰로 표시할지 고민중
 
-
+        //sharedPreferences 객체(자동로그인용)
         SharedPreferences auto2 = getSharedPreferences("auto2", Activity.MODE_PRIVATE);
         stdId = auto2.getString("inputStdId",null);
         stdPw = auto2.getString("inputStdPw",null);
         editText1 = (EditText)findViewById(R.id.input_Std_Id);
         editText2 = (EditText)findViewById(R.id.input_std_pw);
 
+        //intent로 Login액티비티에서 넘겨준 토큰값,리프레쉬 토큰값 받아옴
+        token = getIntent().getStringExtra("token");
+        refToken = getIntent().getStringExtra("refToken");
 
+        //기존에 sharedPreferences값이 존재한다면 자동로그인 실행
         if(stdId != null && stdPw!=null){
-            if(stdId.equals("b")&&stdPw.equals("b")){
                 //자동로그인조건 만족시 다음페이지로 넘어감
                 Toast.makeText(this, "자동 인증합니다", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, Main.class);
-                intent.putExtra("stdId",stdId);
+                intent.putExtra("token",token);
+                intent.putExtra("refToken",refToken);
                 startActivity(intent);
                 finish();
-            }
         }
         Toast.makeText(this, stdId + stdPw, Toast.LENGTH_SHORT).show();
-        
+        Toast.makeText(this,"Bearer "+token, Toast.LENGTH_SHORT).show();
 
+        //인증 버튼 눌렀을경우
         Button btn1 = (Button)findViewById(R.id.btn_Certification);
         View.OnClickListener listener = new View.OnClickListener() {
             //인증버튼에 달아줄 리스너 생성
             @Override
             public void onClick(View view) {
-                if(editText1.getText().toString().equals("b")&&editText2.getText().toString().equals("b")){
-                    //로그인조건 만족시 sharedpreferences 생성
-                    SharedPreferences auto2 = getSharedPreferences("auto2",Activity.MODE_PRIVATE);
-                    SharedPreferences.Editor autoLogin2 = auto2.edit();
-                    autoLogin2.putString("inputStdId",editText1.getText().toString());
-                    autoLogin2.putString("inputStdPw",editText2.getText().toString());
-                    autoLogin2.commit();
-                    Toast.makeText(Certification.this, "학사 인증완료", Toast.LENGTH_SHORT).show();
-
-
-                    //로그인조건 만족시 다음페이지로 넘어감
-                    Intent intent = new Intent(getApplicationContext(), Main.class);
-                    intent.putExtra("stdId",editText1.getText().toString());
-                    startActivity(intent);
-                    finish();
-                }
-                else{
-                    //로그인조건 불만족시
-                    Toast.makeText(Certification.this, "학사정보 불일치", Toast.LENGTH_SHORT).show();
-                }
+                forestLogin();
+//                if(editText1.getText().toString().equals("b")&&editText2.getText().toString().equals("b")){
+//                    //로그인조건 만족시 sharedpreferences 생성
+//                    SharedPreferences auto2 = getSharedPreferences("auto2",Activity.MODE_PRIVATE);
+//                    SharedPreferences.Editor autoLogin2 = auto2.edit();
+//                    autoLogin2.putString("inputStdId",editText1.getText().toString());
+//                    autoLogin2.putString("inputStdPw",editText2.getText().toString());
+//                    autoLogin2.commit();
+//                    Toast.makeText(Certification.this, "학사 인증완료", Toast.LENGTH_SHORT).show();
+//
+//
+//                    //로그인조건 만족시 다음페이지로 넘어감
+//                    Intent intent = new Intent(getApplicationContext(), Main.class);
+//                    intent.putExtra("stdId",editText1.getText().toString());
+//                    startActivity(intent);
+//                    finish();
+//                }
+//                else{
+//                    //로그인조건 불만족시
+//                    Toast.makeText(Certification.this, "학사정보 불일치", Toast.LENGTH_SHORT).show();
+//                }
             }
         };
+        //btn1에 리스너 달아줌
         btn1.setOnClickListener(listener);
+
+        //Login액티비티로 돌아가는 back버튼 눌렀을경우
         Button btn2 = (Button)findViewById(R.id.btn_back);
         View.OnClickListener listener2 = new View.OnClickListener() {
             @Override
@@ -97,6 +113,32 @@ public class Certification extends AppCompatActivity {
                 //login Activity로 이동후 현재(Certification Activity종료)
             }
         };
+        //btn2에 리스너 달아줌
         btn2.setOnClickListener(listener2);
+    }
+    public void forestLogin(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(url)
+                .build();
+        s1 = editText1.getText().toString();
+        s2 = editText2.getText().toString();
+        ForestLoginRequest req = new ForestLoginRequest(s1,s2);
+        SkhuService service = retrofit.create(SkhuService.class);
+        Call<ForestLoginResponse> call = service.postForestLogin(token,req);
+        call.enqueue(new Callback<ForestLoginResponse>() {
+            @Override
+            public void onResponse(Call<ForestLoginResponse> call, Response<ForestLoginResponse> response) {
+                String msg = "";
+                ForestLoginResponse res = (ForestLoginResponse)response.body();
+                msg=res.getMessage();
+                Toast.makeText(Certification.this, msg, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ForestLoginResponse> call, Throwable t) {
+
+            }
+        });
     }
 }

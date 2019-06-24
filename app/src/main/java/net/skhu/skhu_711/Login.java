@@ -42,11 +42,9 @@ public class Login extends AppCompatActivity {
 
         if(loginId != null && loginPw!=null){
             //자동로그인조건 만족시 다음페이지로 넘어감
-            Toast.makeText(this, "자동로그인합니다", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, Certification.class);
-            startActivity(intent);
-            finish();
-
+            editText1.setText(loginId);
+            editText2.setText(loginPw);
+            check_logIn();
         }
     }
 
@@ -98,6 +96,8 @@ public class Login extends AppCompatActivity {
 
                     //로그인조건 만족시 다음페이지로 넘어감
                     Intent intent = new Intent(getApplicationContext(),Certification.class);
+                    intent.putExtra("token",token);
+                    intent.putExtra("refToken",refToken);
                     startActivity(intent);
                     finish();
                 }else{

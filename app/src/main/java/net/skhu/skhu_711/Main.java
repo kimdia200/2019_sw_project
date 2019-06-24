@@ -35,9 +35,9 @@ public class Main extends AppCompatActivity {
 
 
         TextView UserStatus = (TextView)findViewById(R.id.textView_id);
-        String stdId = getIntent().getStringExtra("stdId");
-        UserStatus.setText(stdId+"님 환영합니다");
-        //intent로 넘겨받은 값을 이용해서 학번+"님 환영합니다"표시 함
+//        String stdId = getIntent().getStringExtra("stdId");
+//        UserStatus.setText(stdId+"님 환영합니다");
+        //intent로 넘겨받은 값을 이용해서 학번+"님 환영합니다"표시 함없애버렸음
 
 
         //건물목록을 나타내주는 RecyclerView 구현 시작
