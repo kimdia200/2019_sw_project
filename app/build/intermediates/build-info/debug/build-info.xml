@@ -6,7 +6,7 @@
     density="xxxhdpi"
     format="10"
     plugin-version="3.1.2"
-    timestamp="1561351055347"
+    timestamp="1561355661114"
     token="-2103658696457919808"
     verifier="COLD_SWAP_REQUESTED" >
 
@@ -23,9 +23,13 @@
         name="verifier"
         duration="0" />
 
+    <artifact
+        location="C:\Users\Administrator\Desktop\Skhu_711\app\build\intermediates\resources\instant-run\debug\resources-debug.apk"
+        type="SPLIT" />
+
     <build
         build-mode="FULL"
-        timestamp="1561349287991"
+        timestamp="1561353210160"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\Administrator\Desktop\Skhu_711\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
@@ -69,8 +73,35 @@
     </build>
     <build
         build-mode="COLD"
+        ir-eligibility="CLASS_ADDED"
+        timestamp="1561354450702"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Administrator\Desktop\Skhu_711\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Administrator\Desktop\Skhu_711\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Administrator\Desktop\Skhu_711\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Administrator\Desktop\Skhu_711\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Administrator\Desktop\Skhu_711\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Administrator\Desktop\Skhu_711\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Administrator\Desktop\Skhu_711\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+            type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
         ir-eligibility="COMPATIBLE"
-        timestamp="1561351040541"
+        timestamp="1561355427013"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="C:\Users\Administrator\Desktop\Skhu_711\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
@@ -78,7 +109,11 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1561351055347"
-        verifier="COLD_SWAP_REQUESTED" />
+        timestamp="1561355661114"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Administrator\Desktop\Skhu_711\app\build\intermediates\resources\instant-run\debug\resources-debug.apk"
+            type="SPLIT" />
+    </build>
 
 </instant-run>

@@ -48,7 +48,6 @@ public class Login extends AppCompatActivity {
             finish();
 
         }
-        Toast.makeText(this, loginId +" "+ loginPw, Toast.LENGTH_SHORT).show();
     }
 
     public void onclick(View view){
@@ -75,7 +74,6 @@ public class Login extends AppCompatActivity {
                 .build();
         SkhuService service = retrofit.create(SkhuService.class);
         LoginRequest req = new LoginRequest(editText1.getText().toString(),editText2.getText().toString());
-        Toast.makeText(this, req.getUsername()+req.getPassword(), Toast.LENGTH_SHORT).show();
         Call<LoginResponse> call = service.postLogin(req);
         call.enqueue(new Callback<LoginResponse>() {
 
@@ -104,7 +102,14 @@ public class Login extends AppCompatActivity {
                     finish();
                 }else{
                     //로그인 실패시 로그인실패 메시지 보여줌
-                    Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
+                    //아이디 틀릴때
+                    if(res.getCode()==404) {
+                        Toast.makeText(Login.this, msg, Toast.LENGTH_LONG).show();
+                    }
+                    //비밀번호 틀릴때
+                    else{
+                        Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 

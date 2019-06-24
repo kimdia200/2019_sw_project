@@ -18,35 +18,47 @@
         app:srcCompat="@drawable/low" />
 
     <EditText
-        android:id="@+id/input_Id"
+        android:id="@+id/input_Name"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginLeft="56dp"
-        android:layout_marginRight="56dp"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="171dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="56dp"
         android:background="@drawable/rounded_corner"
         android:ems="10"
-        android:hint="아이디"
+        android:hint="이름"
         android:inputType="textUri"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/input_Id"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="56dp"
+        android:background="@drawable/rounded_corner"
+        android:ems="10"
+        android:hint="아이디"
+        android:inputType="textUri"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_Name" />
+
+    <EditText
         android:id="@+id/input_pw"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginLeft="56dp"
-        android:layout_marginRight="56dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="56dp"
         android:background="@drawable/rounded_corner"
         android:ems="10"
-        android:hint="비밀번호"
+        android:hint="비밀번호 : 영문숫자혼합 8자리 이상"
         android:inputType="textPassword"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_Id" />
