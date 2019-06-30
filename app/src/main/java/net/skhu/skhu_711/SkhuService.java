@@ -8,6 +8,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface SkhuService {
 
@@ -54,6 +55,14 @@ public interface SkhuService {
     Call<UserInfoResponse> getUserInfo(
             //요청에 대한 응답을 UserInfoResPonse객체로 반환받고 메소드 이름을 getUserInfo로
             @Header("Authorization") String token
+    );
+    //Get요청 메소드(Select Activity에서 사용함)
+    @GET("/buildings/{buildingNumber}/classrooms")
+    //건물번호에 따라 대여할수있는 강의실 목록 가져옴
+    Call<ClassRoomResponse> getClassRoomList(
+            //요청에 대한 응답을 ClassRoomResponse객체로 반환받고 메소드 이름을 getClassRoomList로
+            @Header("Authorization") String token,
+            @Path("buildingNumber") int bundingNumber
     );
 
 

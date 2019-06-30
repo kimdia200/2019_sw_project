@@ -613,8 +613,8 @@ public final class R {
         public static final int notification_template_icon_low_bg = 0x7f060064;
         public static final int notification_tile_bg = 0x7f060065;
         public static final int notify_panel_notification_icon_bg = 0x7f060066;
-        public static final int tooltip_frame_dark = 0x7f060070;
-        public static final int tooltip_frame_light = 0x7f060071;
+        public static final int tooltip_frame_dark = 0x7f060071;
+        public static final int tooltip_frame_light = 0x7f060072;
     }
     public static final class id {
         private id() {}
@@ -715,15 +715,15 @@ public final class R {
         public static final int text2 = 0x7f0700ac;
         public static final int textSpacerNoButtons = 0x7f0700ad;
         public static final int textSpacerNoTitle = 0x7f0700ae;
-        public static final int time = 0x7f0700c1;
-        public static final int title = 0x7f0700c2;
-        public static final int titleDividerNoCustom = 0x7f0700c3;
-        public static final int title_template = 0x7f0700c4;
-        public static final int top = 0x7f0700c5;
-        public static final int topPanel = 0x7f0700c6;
-        public static final int uniform = 0x7f0700c7;
-        public static final int up = 0x7f0700c8;
-        public static final int wrap_content = 0x7f0700cc;
+        public static final int time = 0x7f0700c2;
+        public static final int title = 0x7f0700c3;
+        public static final int titleDividerNoCustom = 0x7f0700c4;
+        public static final int title_template = 0x7f0700c5;
+        public static final int top = 0x7f0700c6;
+        public static final int topPanel = 0x7f0700c7;
+        public static final int uniform = 0x7f0700c8;
+        public static final int up = 0x7f0700c9;
+        public static final int wrap_content = 0x7f0700cd;
     }
     public static final class integer {
         private integer() {}

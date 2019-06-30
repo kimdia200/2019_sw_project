@@ -125,9 +125,9 @@ public class Main extends AppCompatActivity {
                 .baseUrl(url)
                 .client(client)
                 .build();
-
-        token = getIntent().getStringExtra("token");
         SkhuService service = retrofit.create(SkhuService.class);
+        token = getIntent().getStringExtra("token");
+
         Call<RentalListResponse> call = service.getRentalList(token);
         call.enqueue(new Callback<RentalListResponse>() {
             @Override

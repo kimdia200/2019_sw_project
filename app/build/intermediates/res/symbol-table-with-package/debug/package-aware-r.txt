@@ -664,6 +664,7 @@ drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable rounded_corner
 drawable rounded_corner_button
+drawable rounded_corner_item
 drawable sharp_computer_black_18dp
 drawable sharp_computer_white_18dp
 drawable sharp_local_movies_black_18dp
@@ -851,6 +852,7 @@ id textSpacerNoTitle
 id textView
 id textView10
 id textView11
+id textView2
 id textView3
 id textView4
 id textView5

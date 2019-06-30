@@ -82,15 +82,17 @@ public class Login extends AppCompatActivity {
                 msg = res.getMessage();
                 //로그인이 성공적이면
                 if(msg.equals("로그인 성공")){
+                    token = res.getData().getToken();
+                    refToken = res.getData().getRefreshToken();
                     //로그인조건 만족시 sharedpreferences 생성
                     SharedPreferences auto = getSharedPreferences("auto",Activity.MODE_PRIVATE);
                     SharedPreferences.Editor autoLogin = auto.edit();
                     autoLogin.putString("inputId",editText1.getText().toString());
                     autoLogin.putString("inputPw",editText2.getText().toString());
+                    autoLogin.putString("token","Bearer "+token);
                     autoLogin.commit();
                     //토큰값 저장
-                    token = res.getData().getToken();
-                    refToken = res.getData().getRefreshToken();
+
                     Toast.makeText(Login.this, "로그인 완료", Toast.LENGTH_SHORT).show();
 
 

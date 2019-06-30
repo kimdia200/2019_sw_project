@@ -34,13 +34,39 @@ public class ClassRoomAdapter extends RecyclerView.Adapter<ClassRoomAdapter.View
         public void setData(){
             ClassRoom_item item = arrayList.get(getAdapterPosition());
             classRoomName.setText(item.getClassroomName());
-            roomType.setText(item.getDetailType());
+            //roomType = 비고
+            //- SPECIAL: 특수 강의실
+            //- SMALL: 소형 강의실
+            //- MIDDLE: 중형 강의실
+            //- BIG: 대형 강의실
+            String temp;
+            if(item.getRoomType().equals("SPECIAL")){
+                temp="특수강의실";
+            }else if(item.getRoomType().equals("SMALL")){
+                temp="소형강의실";
+            }else if(item.getRoomType().equals("MIDDLE")){
+                temp="중형강의실";
+            }else{
+                temp="대형강의실";
+            }
+            roomType.setText(temp);
             people.setText(item.getPeople()+"명");
             classroom_img.setImageResource(item.getImg_src());
+//            DetailType(에 따른 버튼 표시)
+//                    - PROJECTOR: 빔프로젝터
+//                    - COMPUTER: 컴퓨터
+//                    - BOTH: 빔프로젝터, 컴퓨터
+//                    - NULL: 해당사항 없음
+            if(item.getDetailType().equals("PROJECTOR")){
+                projector.setImageResource(R.drawable.sharp_local_movies_white_18dp);
+            }else if (item.getDetailType().equals("COMPUTER")){
+                computer.setImageResource(R.drawable.sharp_computer_white_18dp);
+            }else if (item.getDetailType().equals("BOTH")){
+                computer.setImageResource(R.drawable.sharp_computer_white_18dp);
+                projector.setImageResource(R.drawable.sharp_local_movies_white_18dp);
+            }
 
-            //나중에 받아오는 값에 따라 바뀌게 표시 해주어야함
-            computer.setImageResource(R.drawable.sharp_computer_white_18dp);
-            projector.setImageResource(R.drawable.sharp_local_movies_white_18dp);
+
         }
 
         //recycler 객체 하나 클릭시 일어나는 onclick 메소드 재정의

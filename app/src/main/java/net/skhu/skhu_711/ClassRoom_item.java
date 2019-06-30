@@ -14,12 +14,11 @@ public class ClassRoom_item {
 //            "roomType": "SPECIAL"
 
 
-    public ClassRoom_item(String classroomName, int people, String detailType, String roomType, int img_src) {
+    public ClassRoom_item(String classroomName, int people, String detailType, String roomType) {
         this.classroomName = classroomName;
         this.people = people;
         this.detailType = detailType;
         this.roomType = roomType;
-        this.img_src = img_src;
     }
 
 
