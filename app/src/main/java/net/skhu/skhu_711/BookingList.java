@@ -23,7 +23,7 @@ public class BookingList extends AppCompatActivity {
         TextView t1 = (TextView)findViewById(R.id.test);
         Button btn1 = (Button)findViewById(R.id.btn_booking);
 
-        fCode = getIntent().getStringExtra("fCode");
+        fCode = getIntent().getStringExtra("detailType");
         bCode = getIntent().getStringExtra("bCode");
         bName = getIntent().getStringExtra("bName");
         t1.setText(bCode+". "+bName+"  "+fCode);
@@ -32,7 +32,7 @@ public class BookingList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),RequestPage.class);
-                intent.putExtra("fCode",fCode);
+                intent.putExtra("detailType",fCode);
                 intent.putExtra("bCode",bCode);
                 intent.putExtra("bName",bName);
                 startActivity(intent);

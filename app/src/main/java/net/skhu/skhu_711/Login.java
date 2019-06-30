@@ -91,7 +91,7 @@ public class Login extends AppCompatActivity {
                     //토큰값 저장
                     token = res.getData().getToken();
                     refToken = res.getData().getRefreshToken();
-                    Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "로그인 완료", Toast.LENGTH_SHORT).show();
 
 
                     //로그인조건 만족시 다음페이지로 넘어감

@@ -664,6 +664,10 @@ drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable rounded_corner
 drawable rounded_corner_button
+drawable sharp_computer_black_18dp
+drawable sharp_computer_white_18dp
+drawable sharp_local_movies_black_18dp
+drawable sharp_local_movies_white_18dp
 drawable skhu_logo
 drawable skhu_main_img
 drawable stroke
@@ -722,6 +726,8 @@ id center_vertical
 id chains
 id checkbox
 id chronometer
+id classRoomView
+id classroom_img
 id clip_horizontal
 id clip_vertical
 id collapseActionView
@@ -741,8 +747,6 @@ id edit_query
 id end
 id expand_activities_button
 id expanded_menu
-id facilityView
-id facility_img
 id fill
 id fill_horizontal
 id fill_vertical
@@ -759,6 +763,8 @@ id ifRoom
 id image
 id imageView
 id imageView2
+id imageView_computer
+id imageView_projector
 id info
 id input_Id
 id input_Name
@@ -849,17 +855,17 @@ id textView3
 id textView4
 id textView5
 id textView8
-id textView_fCapacity
-id textView_fCode
-id textView_fName
+id textView_classRoomName
 id textView_id
 id textView_notice
+id textView_people
 id textView_request2
 id textView_request3
 id textView_request4
 id textView_request5
 id textView_request6
 id textView_request7
+id textView_roomType
 id time
 id title
 id titleDividerNoCustom
@@ -913,7 +919,7 @@ layout activity_request_page
 layout activity_select
 layout activity_sign_up
 layout building_item
-layout facility_item
+layout class_room_item
 layout my_list_item
 layout notification_action
 layout notification_action_tombstone
