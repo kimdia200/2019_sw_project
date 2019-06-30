@@ -7,10 +7,10 @@ public class RentalDate {
 
     int startTime;
     int endTime;
-    LocalDate rentalDate;
+    String rentalDate;
 
 
-    RentalDate(int startTime, int endTime, LocalDate rentalDate){
+    RentalDate(int startTime, int endTime, String rentalDate){
         this.startTime = startTime;
         this.endTime = endTime;
         this.rentalDate = rentalDate;
@@ -24,7 +24,7 @@ public class RentalDate {
         this.endTime = endTime;
     }
 
-    public void setRentalDate(LocalDate rentalDate) {
+    public void setRentalDate(String rentalDate) {
         this.rentalDate = rentalDate;
     }
 
@@ -36,7 +36,7 @@ public class RentalDate {
         return endTime;
     }
 
-    public LocalDate getRentalDate() {
+    public String getRentalDate() {
         return rentalDate;
     }
 }

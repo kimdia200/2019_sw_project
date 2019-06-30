@@ -34,11 +34,11 @@ public class MyList_item {
         this.lectureCode = lectureCode;
     }
 
-    public void setCancle(Boolean cancel) {
+    public void setCancel(Boolean cancel) {
         this.cancel = cancel;
     }
 
-    public int getIndex() {
+    public int getIdx() {
         return idx;
     }
 

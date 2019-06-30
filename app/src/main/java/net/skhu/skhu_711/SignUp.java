@@ -63,8 +63,7 @@ public class SignUp extends AppCompatActivity {
             }else if(id_check==0){
                 //id중복확인 안했을경우
                 idBox.setError("중복확인을 해주세요");
-            }
-            else if(isEmptyOrWhiteSpace(pw)){
+            }else if(isEmptyOrWhiteSpace(pw)){
                 //비밀번호 입력안했을경우
                 pwBox.setError("비밀번호를 입력해주세요");
             }else if(pw.equals(pw2)==false){

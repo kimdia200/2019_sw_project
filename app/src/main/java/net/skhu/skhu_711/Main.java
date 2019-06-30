@@ -10,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,10 +19,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.franmontiel.persistentcookiejar.ClearableCookieJar;
-import com.franmontiel.persistentcookiejar.PersistentCookieJar;
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.google.gson.Gson;
 
 import java.net.CookieManager;
@@ -32,6 +29,7 @@ import java.util.List;
 
 import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,6 +45,7 @@ public class Main extends AppCompatActivity {
     String stdId;
     static final String url = "https://dev.mobile.shouwn.com/";
     String token;
+    RecyclerView recyclerView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,20 +80,10 @@ public class Main extends AppCompatActivity {
         recyclerView1.setAdapter(buildingAdapter);
         //건물 목록을 나타내주는 RecyclerView 구현 완료
 
-        //나의 예약현황을 나타내주는 RecyclerView 구현 시작
-        LocalDate dd = LocalDate.now();
-        arrayList2 = new ArrayList<>();
+
+
         //retrofit2라이브러리로 http통신해서 나의 신청현황 가져옴
         getRentalList();
-        arrayList2.add(new MyList_item(1,new RentalDate(10,12,dd),"승인대기중","6202",true));
-        arrayList2.add(new MyList_item(2,new RentalDate(13,14,dd),"승인","6206",false));
-        myListAdapter = new MyListAdapter(this,arrayList2);
-        RecyclerView recyclerView2 = (RecyclerView)findViewById(R.id.BookingView);
-        recyclerView2.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        recyclerView2.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-        recyclerView2.setItemAnimator(new DefaultItemAnimator());
-        recyclerView2.setAdapter(myListAdapter);
-        //나의 예약현황을 나타내주는 RecyclerView 구현 종료
 
         //로그아웃 버튼 구현 시작
         Button btn2 = (Button)findViewById(R.id.btn_logout);
@@ -121,21 +110,17 @@ public class Main extends AppCompatActivity {
         //로그아웃 버튼 구현 완료
     }
     public void getRentalList(){
-        //라이브러리로 쓴거
-        ClearableCookieJar cookieJar =
-                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(this.getApplicationContext()));
-        final OkHttpClient client = new OkHttpClient.Builder()
-                .cookieJar(cookieJar)
-                .build();
 
-//        OkHttpClient client = new OkHttpClient();
-//        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-//
-//        builder.addInterceptor(new AddCookiesInterceptor(Main.this)); // VERY VERY IMPORTANT
-//        builder.addInterceptor(new RecievedCookiesInterceptor(Main.this)); // VERY VERY IMPORTANT
-//        client = builder.build();
+        //쿠키 읽기, 저장을 목적으로한 OKHTTP 객체 생성
+        OkHttpClient client = new OkHttpClient();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-        Retrofit retrofit = new Retrofit.Builder()
+        builder.addNetworkInterceptor(new AddCookiesInterceptor(Main.this)); // VERY VERY IMPORTANT
+        builder.addInterceptor(new RecievedCookiesInterceptor(Main.this)); // VERY VERY IMPORTANT
+        client = builder.build();
+
+        //HTTP통신을 위한 RETROFIT객체 생성 및 OKHTTP 객체 추가
+        final Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(url)
                 .client(client)
@@ -148,14 +133,32 @@ public class Main extends AppCompatActivity {
             @Override
             public void onResponse(Call<RentalListResponse> call, Response<RentalListResponse> response) {
                 RentalListResponse res = response.body();
-                arrayList2 = (ArrayList<MyList_item>)res.getData();
+                arrayList2 = new ArrayList<>();
+                for(MyList_item x : res.getData()){
+                    arrayList2.add(x);
+                }
+
+                //나의 예약현황을 나타내주는 RecyclerView 구현 시작
+                myListAdapter = new MyListAdapter(getApplicationContext(),arrayList2);
+                recyclerView2 = (RecyclerView)findViewById(R.id.BookingView);
+                recyclerView2.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
+                recyclerView2.addItemDecoration(new DividerItemDecoration(getApplicationContext(),DividerItemDecoration.VERTICAL));
+                recyclerView2.setItemAnimator(new DefaultItemAnimator());
+                recyclerView2.setAdapter(myListAdapter);
+                //나의 예약현황을 나타내주는 RecyclerView 구현 종료
                 Toast.makeText(Main.this, res.getMessage(), Toast.LENGTH_SHORT).show();
-                //현재 500값만 넘어와 코드를 수정해야함 현재 에러상태
+
+                //통신 성공시 리스폰값 받아올수있는지 유무에 대한 로그캣
+                if (response.isSuccessful())
+                    Log.e("Success", new Gson().toJson(response.body()));
+                else
+                    Log.e("unSuccess", new Gson().toJson(response.errorBody()));
+
             }
 
             @Override
             public void onFailure(Call<RentalListResponse> call, Throwable t) {
-                Toast.makeText(Main.this, "실패야?", Toast.LENGTH_SHORT).show();
+                Log.e("onFailure",t.toString());
                 t.printStackTrace();
             }
         });

@@ -7,15 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.franmontiel.persistentcookiejar.ClearableCookieJar;
-import com.franmontiel.persistentcookiejar.PersistentCookieJar;
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -105,22 +101,15 @@ public class Certification extends AppCompatActivity {
 
     //forestLogin함수
     public void forestLogin(){
-//         라이브러리로 쓴거
-        ClearableCookieJar cookieJar =
-                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(this.getApplicationContext()));
 
-        final OkHttpClient client = new OkHttpClient.Builder()
-                .cookieJar(cookieJar)
-                .build();
+        OkHttpClient client = new OkHttpClient();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-//        OkHttpClient client = new OkHttpClient();
-//        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-//
-//        builder.addInterceptor(new AddCookiesInterceptor(Certification.this)); // VERY VERY IMPORTANT
-//        builder.addInterceptor(new RecievedCookiesInterceptor(Certification.this)); // VERY VERY IMPORTANT
-//        client = builder.build();
+        builder.addNetworkInterceptor(new AddCookiesInterceptor(Certification.this)); // VERY VERY IMPORTANT
+        builder.addInterceptor(new RecievedCookiesInterceptor(Certification.this)); // VERY VERY IMPORTANT
+        client = builder.build();
 
-        Retrofit retrofit = new Retrofit.Builder()
+        final Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(url)
                 .client(client)
@@ -162,6 +151,7 @@ public class Certification extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ForestLoginResponse> call, Throwable t) {
+                Log.e("onFailure",t.toString());
                 t.printStackTrace();
 
             }
