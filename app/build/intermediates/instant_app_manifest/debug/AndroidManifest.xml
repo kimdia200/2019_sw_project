@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:testOnly="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true" >
         <activity android:name="net.skhu.skhu_711.RequestPage" />
         <activity android:name="net.skhu.skhu_711.Login" >
             <intent-filter>
@@ -34,11 +35,6 @@
         <activity android:name="net.skhu.skhu_711.Main" />
         <activity android:name="net.skhu.skhu_711.Select" />
         <activity android:name="net.skhu.skhu_711.BookingList" />
-
-        <provider
-            android:name="com.android.tools.ir.server.InstantRunContentProvider"
-            android:authorities="net.skhu.skhu_711.com.android.tools.ir.server.InstantRunContentProvider"
-            android:multiprocess="true" />
     </application>
 
 </manifest>

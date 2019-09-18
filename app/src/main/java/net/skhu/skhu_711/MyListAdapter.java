@@ -13,6 +13,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder> {
 
     private ArrayList<MyList_item> arrayList = new ArrayList<>();
@@ -28,7 +34,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
             cancle = view.findViewById(R.id.rental_cancle);
         }
         public void setData(){
-            MyList_item item = arrayList.get(getAdapterPosition());
+            final MyList_item item = arrayList.get(getAdapterPosition());
             status.setText(item.getRentalState());
             rDate.setText(
                     item.getRentalDate().getStartTime()+":00 ~ "+
@@ -44,6 +50,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
                 public void onClick(View view) {
                     //취소버튼클릭시 일어나는 이벤트 구현해야함
                     Toast.makeText(view.getContext(), "취소버튼 클릭", Toast.LENGTH_SHORT).show();
+
                 }
             };
             cancle.setOnClickListener(listener);

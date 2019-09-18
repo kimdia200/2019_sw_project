@@ -81,7 +81,7 @@ public class ClassRoomAdapter extends RecyclerView.Adapter<ClassRoomAdapter.View
             intent.putExtra("classroomName",item.getClassroomName());
             intent.putExtra("detailType",item.getDetailType());
             intent.putExtra("people",item.getPeople());
-            view.getContext().startActivity(intent);
+            mActivity.startActivity(intent);
             mActivity.finish();
             //위의 코드 및 생성자 파라미터 수정으로 인해 액티비티 값을 넘겨받아 사용할수있게되었음
         }

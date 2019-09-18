@@ -28,7 +28,7 @@ public class Select extends AppCompatActivity {
 
     ArrayList<ClassRoom_item> arrayList;
     ClassRoomAdapter classRoomAdapter;
-    static final String url = "https://dev.mobile.shouwn.com/";
+    static final String url = "http://dev.mobile.shouwn.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,8 @@ public class Select extends AppCompatActivity {
 
         String s1 = getIntent().getExtras().getString("bCode");
         String s2 = getIntent().getExtras().getString("bName");
-        String token = getSharedPreferences("auto",MODE_PRIVATE).getString("token",null);
+//        String token = getSharedPreferences("auto",MODE_PRIVATE).getString("token",null);
+        //  토큰 삭제처리
         t1.setText(s1+". "+s2);
 
         int buildingNumber = Integer.parseInt(s1);
@@ -61,7 +62,7 @@ public class Select extends AppCompatActivity {
                 .client(client)
                 .build();
         SkhuService service = retrofit.create(SkhuService.class);
-        Call<ClassRoomResponse> call = service.getClassRoomList(token,buildingNumber);
+        Call<ClassRoomResponse> call = service.getClassRoomList(buildingNumber);
         call.enqueue(new Callback<ClassRoomResponse>() {
             @Override
             public void onResponse(Call<ClassRoomResponse> call, Response<ClassRoomResponse> response) {
@@ -77,13 +78,13 @@ public class Select extends AppCompatActivity {
                     x.setImg_src(R.drawable.class3);
                     arrayList.add(x);
                 }
-                //나의 예약현황을 나타내주는 RecyclerView 구현 시작
+                //강의실 목록을 나타내주는 RecyclerView 구현 시작
                 classRoomAdapter = new ClassRoomAdapter(getApplicationContext(),Select.this,arrayList);
                 RecyclerView recyclerView1 = (RecyclerView)findViewById(R.id.classRoomView);
                 recyclerView1.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
                 recyclerView1.setItemAnimator(new DefaultItemAnimator());
                 recyclerView1.setAdapter(classRoomAdapter);
-                //나의 예약현황을 나타내주는 RecyclerView 구현 종료
+                //강의실 목록을 나타내주는 RecyclerView 구현 종료
 
 
                 //통신 성공시 리스폰값 받아올수있는지 유무에 대한 로그캣

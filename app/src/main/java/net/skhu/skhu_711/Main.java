@@ -43,7 +43,7 @@ public class Main extends AppCompatActivity {
     BuildingAdapter buildingAdapter;
     MyListAdapter myListAdapter;
     String stdId;
-    static final String url = "https://dev.mobile.shouwn.com/";
+    static final String url = "http://dev.mobile.shouwn.com/";
     String token;
     RecyclerView recyclerView2;
 
@@ -58,8 +58,8 @@ public class Main extends AppCompatActivity {
 //        UserStatus.setText(stdId+"님 환영합니다");
         //intent로 넘겨받은 값을 이용해서 학번+"님 환영합니다"표시 함없애버렸음
 
-
-        getUserInfo();
+//         유저정보 불러오는 함수 수정필요(로그인방법 변경)
+//        getUserInfo();
 
 
         //건물목록을 나타내주는 RecyclerView 구현 시작
@@ -126,9 +126,9 @@ public class Main extends AppCompatActivity {
                 .client(client)
                 .build();
         SkhuService service = retrofit.create(SkhuService.class);
-        token = getIntent().getStringExtra("token");
+//        token = getIntent().getStringExtra("token"); 토큰 삭제처리
 
-        Call<RentalListResponse> call = service.getRentalList(token);
+        Call<RentalListResponse> call = service.getRentalList();
         call.enqueue(new Callback<RentalListResponse>() {
             @Override
             public void onResponse(Call<RentalListResponse> call, Response<RentalListResponse> response) {
@@ -163,30 +163,35 @@ public class Main extends AppCompatActivity {
             }
         });
     }
-    public void getUserInfo(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(url)
-                .build();
-
-        token = getIntent().getStringExtra("token");
-        SkhuService service = retrofit.create(SkhuService.class);
-        Call<UserInfoResponse> call = service.getUserInfo(token);
-        call.enqueue(new Callback<UserInfoResponse>() {
-            @Override
-            public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
-                UserInfoResponse res = (UserInfoResponse)response.body();
-                stdId = res.getData().getName();
-                TextView UserStatus = (TextView)findViewById(R.id.textView_id);
-                UserStatus.setText(stdId+"님 환영합니다");
-            }
-
-            @Override
-            public void onFailure(Call<UserInfoResponse> call, Throwable t) {
-
-            }
-        });
 
 
-    }
+
+    //유저이름 불러오는함수 수정이 필요함
+//    public void getUserInfo(){
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .baseUrl(url)
+//                .build();
+//
+////        token = getIntent().getStringExtra("token");
+//        //토큰 삭제처리
+//        SkhuService service = retrofit.create(SkhuService.class);
+//        Call<UserInfoResponse> call = service.getUserInfo();
+//        call.enqueue(new Callback<UserInfoResponse>() {
+//            @Override
+//            public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
+//                UserInfoResponse res = (UserInfoResponse)response.body();
+//                stdId = res.getData().getName();
+//                TextView UserStatus = (TextView)findViewById(R.id.textView_id);
+//                UserStatus.setText(stdId+"님 환영합니다");
+//            }
+//
+//            @Override
+//            public void onFailure(Call<UserInfoResponse> call, Throwable t) {
+//
+//            }
+//        });
+//
+//
+//    }
 }

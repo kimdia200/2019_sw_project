@@ -21,7 +21,7 @@ public class Login extends AppCompatActivity {
     EditText editText1;
     EditText editText2;
     String loginId, loginPw;
-    Button btn1, btn2;
+    Button btn1, btn2, btnPass;
     String msg;
     String token;
     String refToken;
@@ -35,6 +35,7 @@ public class Login extends AppCompatActivity {
         editText2 = (EditText)findViewById(R.id.input_pw);
         btn1 = (Button)findViewById(R.id.btn_1);
         btn2 = (Button)findViewById(R.id.btn_2);
+        btnPass = (Button)findViewById(R.id.btn_pass);
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         loginId = auto.getString("inputId",null);
         loginPw = auto.getString("inputPw",null);
@@ -61,6 +62,12 @@ public class Login extends AppCompatActivity {
             //회원가입 버튼이 눌리면
             Toast.makeText(this, "회원가입 창으로 전환합니다", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, SignUp.class);
+            startActivity(intent);
+        }
+        else if(buttonId ==R.id.btn_pass){
+            //패스버튼 눌리면
+            Toast.makeText(this, "눌림", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), Certification.class);
             startActivity(intent);
         }
     };

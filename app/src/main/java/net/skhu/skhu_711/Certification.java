@@ -26,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Certification extends AppCompatActivity {
 
-    final static String url = "https://dev.mobile.shouwn.com/";
+    final static String url = "http://dev.mobile.shouwn.com/";
     String stdId, stdPw;
     EditText editText1,editText2;
     String token,refToken;
@@ -53,8 +53,8 @@ public class Certification extends AppCompatActivity {
         editText2 = (EditText)findViewById(R.id.input_std_pw);
 
         //intent로 Login액티비티에서 넘겨준 토큰값,리프레쉬 토큰값 받아옴
-        token = "Bearer "+getIntent().getStringExtra("token");
-        refToken = getIntent().getStringExtra("refToken");
+//        token = "Bearer "+getIntent().getStringExtra("token");
+//        refToken = getIntent().getStringExtra("refToken");
 
         //기존에 sharedPreferences값이 존재한다면 자동로그인 실행
         if(stdId != null && stdPw!=null){
@@ -120,13 +120,14 @@ public class Certification extends AppCompatActivity {
         SkhuService service = retrofit.create(SkhuService.class);
 
 
-        Call<ForestLoginResponse> call = service.postForestLogin(token,req);
+        Call<ForestLoginResponse> call = service.postForestLogin(req); //수정
         call.enqueue(new Callback<ForestLoginResponse>() {
             @Override
             public void onResponse(Call<ForestLoginResponse> call, Response<ForestLoginResponse> response) {
                 String msg = "";
                 ForestLoginResponse res = (ForestLoginResponse)response.body();
                 msg=res.getMessage();
+                Toast.makeText(Certification.this, msg, Toast.LENGTH_SHORT).show();
                 if(msg.equals("로그인 성공")){
                     //로그인조건 만족시 sharedpreferences 생성
                     SharedPreferences auto2 = getSharedPreferences("auto2",Activity.MODE_PRIVATE);

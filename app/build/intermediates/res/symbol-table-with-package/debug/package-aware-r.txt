@@ -716,6 +716,7 @@ id btn_Certification
 id btn_back
 id btn_booking
 id btn_logout
+id btn_pass
 id btn_request
 id building_code
 id building_img
